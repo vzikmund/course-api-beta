@@ -1,0 +1,11 @@
+services:
+    - Course\Api\Api
+    - Course\Api\Wrapper\WrapperFactory
+    - Course\Api\Logger\LoggerFactory(%logDir%)
+    - Course\Api\Model\RetailerModel
+    - Course\Api\Model\ProductModel
+    - Course\Api\Model\OrderModel
+    - Course\Api\Retailer\RetailerFactory
+    - Course\Api\Product\ProductFactory
+    - Course\Api\Order\OrderFactory
+    - Course\Api\Repository
