@@ -53,11 +53,11 @@ final class Order
             "product_name" => $this->row["product_name"],
             "pin" => $this->getPin(),
             "serial_number" => $this->row["serial_number"],
-            "cost" => $this->row["cost"] * 100,
+            "cost" => $this->toHundredths($this->row["cost"]),
             "currency_code" => $this->row["currency_code"],
             "recommended_price" => [
                 [
-                    "end_price" => $this->row["recommended_price"] * 100,
+                    "end_price" => $this->toHundredths($this->row["recommended_price"]),
                     "currency_code" => $this->row["recommended_price_currency_code"]
                 ]
             ],
@@ -67,6 +67,13 @@ final class Order
 
     }
 
+    /**
+     * @param int|float|string $number
+     * @return int
+     */
+    private function toHundredths(int|float|string $number):int{
+        return (int)round($number*100);
+    }
 
 
 }
