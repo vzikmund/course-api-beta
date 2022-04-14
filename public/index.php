@@ -1,9 +1,15 @@
 <?php
 require_once  dirname(__DIR__) . "/vendor/autoload.php";
 
-$container = \Course\Api\Bootstrap::boot();
+try{
+    $container = \Course\Api\Bootstrap::boot();
+    $api = $container->getByType(\Course\Api\Api::class);
+}catch (Exception $e){
+    # todo sent notification to admin | log exception
+    http_response_code(500);
+    exit("Internal server Error");
+}
 
-$api = $container->getByType(\Course\Api\Api::class);
 
 Flight::route('POST /order', [$api, "createOrder"]);
 Flight::route('GET /serial-number/@idRetailer:[0-9]+/@serialNumber:[0-9]+', [$api, "getOrderBySerialNumber"]);
