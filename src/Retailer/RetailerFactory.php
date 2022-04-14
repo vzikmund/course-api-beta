@@ -29,13 +29,12 @@ final class RetailerFactory
         $retailer = new Retailer($row->toArray());
         $headerKey = $this->httpRequest->getHeader("api-key");
 
-        if(!$retailer->isActive()){
-            throw new BadRequestException("Retailer is not active");
-        }
-
-
         if(!$retailer->isValid($headerKey)){
             throw new UnauthorizedException("Header key Api-Key is invalid");
+        }
+
+        if(!$retailer->isActive()){
+            throw new BadRequestException("Retailer is not active");
         }
 
         return $retailer;
