@@ -60,6 +60,9 @@ final class Wrapper
                 "error_code" => 0
             ];
             $httpCode = 500;
+
+            # log unexpected exception
+            $this->logger->error("Internal server error", ["exception" => $e->getCode(), "trace" => $e->getTrace()]);
         }
 
         $this->logger->$method("<-- $httpCode", $result);
